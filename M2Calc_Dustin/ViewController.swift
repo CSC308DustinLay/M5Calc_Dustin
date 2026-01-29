@@ -2,13 +2,72 @@
 //  ViewController.swift
 //  M2Calc_Dustin
 //
-//  Created by Heather Bishop on 1/27/26.
+//  Created by Dustin Lay on 1/27/26.
 //
 
 import UIKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet weak var number1: UITextField!
+    @IBOutlet weak var number2: UITextField!
+    
+    @IBOutlet weak var operater: UIButton!
+    @IBAction func changeOperater(_ sender: Any)
+    {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let plusAction = UIAlertAction(title: "+ (Plus)", style: .default)
+        { _ in
+            self.operater.setTitle("+", for: .normal)
+        }
+        actionSheet.addAction(plusAction)
+        let minusAction = UIAlertAction(title: "- (Minus)", style: .default)
+        { _ in
+            self.operater.setTitle("-", for: .normal)
+        }
+        actionSheet.addAction(minusAction)
+        let divideAction = UIAlertAction(title: "/ (Divide)", style: .default)
+        { _ in
+            self.operater.setTitle("/", for: .normal)
+        }
+        actionSheet.addAction(divideAction)
+        let multiplyAction = UIAlertAction(title: "* (Multiply)", style: .default)
+        { _ in
+            self.operater.setTitle("*", for: .normal)
+        }
+        actionSheet.addAction(multiplyAction)
+        //Adds to the screen
+        present(actionSheet, animated: true)
+    }
+    
+    @IBOutlet weak var outputLabel: UILabel!
+    @IBAction func calculateButton(_ sender: Any)
+    {
+        let num1 = Int(number1.text!)!
+        let num2 = Int(number2.text!)!
+        let op = operater.title(for: .normal)
+        
+        if op == "+"
+        {
+            let result = num1 + num2
+            outputLabel.text = "\(result)"
+        }
+        if op == "-"
+        {
+            let result = num1 - num2
+            outputLabel.text = "\(result)"
+        }
+        if op == "/"
+        {
+            let result = num1 / num2
+            outputLabel.text = "\(result)"
+        }
+        if op == "*"
+        {
+            let result = num1 * num2
+            outputLabel.text = "\(result)"
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -17,3 +76,5 @@ class ViewController: UIViewController {
 
 }
 
+//ctrl + B = builds project
+//ctrl + R = runs project
