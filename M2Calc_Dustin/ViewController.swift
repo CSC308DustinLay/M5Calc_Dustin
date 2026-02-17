@@ -42,29 +42,36 @@ class ViewController: UIViewController {
     @IBOutlet weak var outputLabel: UILabel!
     @IBAction func calculateButton(_ sender: Any)
     {
-        let num1 = Int(number1.text!)!
-        let num2 = Int(number2.text!)!
-        let op = operater.title(for: .normal)
+        //let num1 = Int(number1.text!)!
+        //let num2 = Int(number2.text!)!
+        //let op = operater.title(for: .normal)
         
-        if op == "+"
+        if let num1 = number1.text, let num1 = Int(num1)
         {
-            let result = num1 + num2
-            outputLabel.text = "\(result)"
-        }
-        if op == "-"
-        {
-            let result = num1 - num2
-            outputLabel.text = "\(result)"
-        }
-        if op == "/"
-        {
-            let result = num1 / num2
-            outputLabel.text = "\(result)"
-        }
-        if op == "*"
-        {
-            let result = num1 * num2
-            outputLabel.text = "\(result)"
+            if let num2 = number2.text, let num2 = Int(num2)
+            {
+                if let op = operater.title(for: .normal)
+                {
+                    var result: Int? = nil
+                    switch op
+                    {
+                    case "+":
+                        result = num1 + num2
+                    case "-":
+                        result = num1 - num2
+                    case "/":
+                        result = num1 / num2
+                    case "*":
+                        result = num1 * num2
+                    default :
+                        print("Unknown operator")
+                    }
+                    if let result = result
+                    {
+                        outputLabel.text = "\(result)"
+                    }
+                }
+            }
         }
     }
     
