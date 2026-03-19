@@ -15,6 +15,10 @@ class ViewController: UIViewController {
     @IBAction func changeOperater(_ sender: Any)
     {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        /*
+        let plusAction = UIAlertAction(title:"+(Plus)", style: .default, handler:{(action: UIAlertAction)->() in
+            self.operater.setTitle("+", for: .normal))
+        */
         let plusAction = UIAlertAction(title: "+ (Plus)", style: .default)
         { _ in
             self.operater.setTitle("+", for: .normal)
