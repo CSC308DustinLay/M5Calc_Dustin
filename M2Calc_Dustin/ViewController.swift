@@ -11,6 +11,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var number1: UITextField!
     @IBOutlet weak var number2: UITextField!
     
+    var selectOperator: Operator?
+    
     @IBOutlet weak var operater: UIButton!
     @IBAction func changeOperater(_ sender: Any)
     {
@@ -20,23 +22,27 @@ class ViewController: UIViewController {
             self.operater.setTitle("+", for: .normal))
         */
         let plusAction = UIAlertAction(title: "+ (Plus)", style: .default)
-        { _ in
-            self.operater.setTitle("+", for: .normal)
+        { _ in self.operater.setTitle("+", for: .normal)
+            self.selectOperator = .plus
         }
+        
         actionSheet.addAction(plusAction)
         let minusAction = UIAlertAction(title: "- (Minus)", style: .default)
         { _ in
             self.operater.setTitle("-", for: .normal)
+            self.selectOperator = .minus
         }
         actionSheet.addAction(minusAction)
         let divideAction = UIAlertAction(title: "/ (Divide)", style: .default)
         { _ in
             self.operater.setTitle("/", for: .normal)
+            self.selectOperator = .divide
         }
         actionSheet.addAction(divideAction)
         let multiplyAction = UIAlertAction(title: "* (Multiply)", style: .default)
         { _ in
             self.operater.setTitle("*", for: .normal)
+            self.selectOperator = .multiply
         }
         actionSheet.addAction(multiplyAction)
         //Adds to the screen
@@ -54,20 +60,20 @@ class ViewController: UIViewController {
         {
             if let num2 = number2.text, let num2 = Int(num2)
             {
-                if let op = operater.title(for: .normal)
+                if let op = selectOperator
                 {
                     var result: Int? = nil
                     switch op
                     {
-                    case "+":
+                    case .plus:
                         result = num1 + num2
-                    case "-":
+                    case .minus:
                         result = num1 - num2
-                    case "/":
+                    case .divide:
                         result = num1 / num2
-                    case "*":
+                    case .multiply:
                         result = num1 * num2
-                    default :
+                    default:
                         print("Unknown operator")
                     }
                     if let result = result
@@ -83,12 +89,23 @@ class ViewController: UIViewController {
             else
             {
                 displayAlert(message: "Please input a valid second number")
+                number2.becomeFirstResponder()
             }
         }
         else
         {
             displayAlert(message: "Please input a valid first number")
+            number1.becomeFirstResponder( )
         }
+        
+        if number1.isFirstResponder
+        {
+            number1.resignFirstResponder( )
+        }
+        else{
+            number2.resignFirstResponder( )
+        }
+        
     }
     
     func displayAlert(message: String)
@@ -102,6 +119,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        number1.becomeFirstResponder( )
     }
 
 
