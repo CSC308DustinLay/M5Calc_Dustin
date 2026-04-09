@@ -118,7 +118,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        number1.delegate = self
+        number2.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -128,5 +130,13 @@ class ViewController: UIViewController {
 
 }
 
-//ctrl + B = builds project
-//ctrl + R = runs project
+extension ViewController: UITextFieldDelegate
+{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        guard !string.isEmpty else { return true }
+        guard let text = Int(string) else { return false }
+        
+        return true
+    }
+}
